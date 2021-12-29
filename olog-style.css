@@ -1,0 +1,198 @@
+*, body{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body{
+    background-color: #3C474B;
+    display: grid;
+    place-items: center;
+}
+
+header h4{
+ text-align: center; 
+ font-weight: 500;
+ color: white;
+ margin-bottom: 10px;
+ margin-top: 20px
+}
+main{
+    background-color:#ffffff;
+    width:450px;
+    height:640px;
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
+    box-shadow: 0px 3px 5px rgb(41, 41, 41);
+}
+
+main button{
+    position: relative;
+    width:44px;
+    height:30px;
+    border-radius: 6px;
+    margin-top: 10px;
+    background-color: #75C6A9;
+    border: none;
+    transition-duration: 0.1s;
+}
+
+main button:hover{
+    background-color: #5BBB98;
+    cursor: pointer;
+    right:-1px;
+}
+
+main button:active{
+    top:2px;
+    background-color: #5BBB98;
+}
+main img{
+    width: 10px;
+    height: 10px;
+}
+
+.newsletter-container{
+    width: 80%;
+    height: 90%;
+    overflow-y: scroll;
+}
+
+.newsletter-container div{
+    margin-bottom: 22px;
+}
+
+.newsletter-container h5{
+    font-size:14px;
+    font-weight: 400;
+    color:#3C474B;
+}
+
+.newsletter-container .add-newsletter-form{
+    margin-top: 10px;
+    margin-bottom:3px;
+    width: 300px;
+    background-color:#75C6A9;
+    border-radius: 6px;
+    transition-duration: 0.1s;
+}
+
+.add-newsletter-form [type="text"], .add-newsletter-form [type="date"] {
+    width:180px;
+    height: 25px;
+    margin-top:10px;
+    margin-left:10px;
+    padding: 5px;
+    border-radius: 6px;
+    border: none;
+}
+
+.newsletter-container .form-buttons{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0px;
+}
+.add-newsletter-form [type="button"], .add-newsletter-form [type="submit"] {
+  color: #3C474B;
+  margin-top:10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  width:50px;
+  height:30px;
+  position: relative;
+}
+
+.add-newsletter-form [type="button"]{
+    background-color: transparent;
+    border:none;
+}
+
+.add-newsletter-form [type="submit"] {
+    background-color: transparent;
+    border: 1.5px solid #3C474B;
+    border-radius: 6px;
+}
+
+.add-newsletter-form [type="button"]:hover, .add-newsletter-form [type="submit"]:hover{
+    right: -1px;
+    cursor: pointer;
+}
+
+.add-newsletter-form [type="button"]:active, .add-newsletter-form [type="submit"]:active{
+    top: 1px;
+}
+.newsletter-button button{
+    padding-left: 15px;
+    display: block;
+    text-align: left;
+    color: white;
+    font-size:16px;
+    font-weight: 400;
+    width:300px;
+    height:50px;
+}
+
+.add-newsletter-form [value="Update"]{
+    width:52px;
+}
+
+.newsletter-button{
+    text-decoration: none;
+}
+
+.add-newsletter{
+    border: 1px solid #75C6A9;
+    background-color: white;
+}
+
+.add-newsletter:hover{
+    background-color: white;
+}
+.add-newsletter:active{
+    background-color: white;
+}
+
+.newsletter-combo{
+    display: flex;
+    gap:15px;
+    align-items: center;
+}
+
+.update-newsletter{
+    position: relative;
+    height:20px;
+    transition-duration: 0.1s;
+}
+.update-newsletter img{
+    position: relative;
+    height: 20px;
+    width:20px ;
+}
+
+.update-newsletter:hover{
+    cursor: pointer;
+}
+
+.update-newsletter:active{
+    top:2px;
+}
+
+header p, footer p{
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 10px;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+footer h5{
+    text-align: center;
+    color: white;
+    font-weight: 400;
+    margin: 15px;
+}
