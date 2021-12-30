@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{%block head%}
+    <title>Admin Dashboard</title>
+{%endblock%}
+
+{%block header%}
+    <a href='/' target="_blank"><p>Preview website</p></a>
+{%endblock%}
+
+{%block content%}
+    <main>
+        <div class="newsletter-container" >
+            <button class="add-newsletter"><img src="{{ url_for('static', filename='imgs/plus_icon_green.png') }}" alt="plus-symbol"></button>
+            <div class="add-newsletter-form">
+                <form>
+                    <input type="text" name="link" placeholder="Enter link here" required>
+                    <input type="date" name="date" required><br>
+                    <div class="form-buttons">
+                        <input type="button" value="Cancel">
+                        <input type="submit" value="Add" >
+                    </div>
+                </form>
+            </div>
+            <div class="newsletter-combo">
+                <a class="newsletter-button" href="" target="_blank">
+                    <button>{content-holder-test}</button>
+                </a>
+                <a href="/update" class="update-newsletter">
+                    <img src="{{ url_for('static', filename='imgs/editing_icon_green.png') }}">
+                </a>
+            </div>  
+        </div>
+    </main>
+{%endblock%}
+
+{%block footer%}
+    <a><p>logout</p></a>
+{%endblock%}
+            
+{%block script%}
+    <script src="{{ url_for('static', filename='scripts/display-form.js') }}"></script>
+{%endblock%}

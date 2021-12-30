@@ -42,7 +42,6 @@ main button{
 main button:hover{
     background-color: #5BBB98;
     cursor: pointer;
-    right:-1px;
 }
 
 main button:active{
@@ -53,6 +52,21 @@ main img{
     width: 10px;
     height: 10px;
 }
+
+.login-container{
+    height:250px
+
+}
+
+.login-container a button{
+   border: 1px solid #75C6A9;
+   color:#75C6A9;
+   background-color: transparent;
+   width: 70px;
+   height: 35px;
+    
+}
+
 
 .newsletter-container{
     width: 80%;
@@ -70,6 +84,7 @@ main img{
     color:#3C474B;
 }
 
+
 .newsletter-container .add-newsletter-form{
     margin-top: 10px;
     margin-bottom:3px;
@@ -77,6 +92,7 @@ main img{
     background-color:#75C6A9;
     border-radius: 6px;
     transition-duration: 0.1s;
+    display: none;
 }
 
 .add-newsletter-form [type="text"], .add-newsletter-form [type="date"] {
@@ -118,7 +134,6 @@ main img{
 }
 
 .add-newsletter-form [type="button"]:hover, .add-newsletter-form [type="submit"]:hover{
-    right: -1px;
     cursor: pointer;
 }
 
@@ -195,4 +210,34 @@ footer h5{
     color: white;
     font-weight: 400;
     margin: 15px;
+}
+
+/* media queries - responsive design */
+
+@media screen and (max-width:452px){
+    main{
+        width: 300px;
+    }
+
+    header h4{
+        font-size:14px;
+    }
+
+    .newsletter-button button{
+        width:240px;
+    }
+
+    .newsletter-container .add-newsletter-form{
+        width: 240px
+    }
+
+    .newsletter-combo{
+        flex-direction: column-reverse;
+        gap: 0.5px;
+        align-items: flex-end;
+    }
+
+    footer h5{
+        font-size:12px;
+    }
 }

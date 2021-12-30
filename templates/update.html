@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{%block head%}
+    <title>Update Newsletter</title>
+{%endblock%}
+
+{%block header%}
+    <a href='/' target="_blank"><p>Preview website</p></a>
+{%endblock%}
+
+{%block content%}
+<main>
+    <div class="newsletter-container" >
+        <div class="add-newsletter-form">
+            <form>
+                <input type="text" name="link" placeholder="Enter link here" required>
+                <input type="date" name="date" required><br>
+                <div class="form-buttons">
+                    <a href="/admin"><input type="button" value="Cancel"></a>
+                    <input type="submit" value="Update" >
+                </div>
+            </form>
+        </div>  
+    </div>
+</main>
+{%endblock%}
+
+{%block footer%}
+    <a><p>logout</p></a>
+{%endblock%}
+            
+{%block script%}
+    <script src="{{ url_for('static', filename='scripts/unhide-form.js') }}"></script>
+{%endblock%}
