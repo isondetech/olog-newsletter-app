@@ -12,9 +12,9 @@
 <main>
     <div class="newsletter-container" >
         <div class="add-newsletter-form">
-            <form>
-                <input type="text" name="link" placeholder="Enter link here" required>
-                <input type="date" name="date" required><br>
+            <form action="/update/{{db_data.id}}" method="POST">
+                <input type="text" name="link" placeholder="Enter link here" value="{{db_data.link}}"required>
+                <input type="date" name="date" value="{{db_data.date}}" required><br>
                 <div class="form-buttons">
                     <a href="/admin"><input type="button" value="Cancel"></a>
                     <input type="submit" value="Update" >

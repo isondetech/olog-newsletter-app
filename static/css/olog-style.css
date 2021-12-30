@@ -78,6 +78,7 @@ main img{
     margin-bottom: 22px;
 }
 
+
 .newsletter-container h5{
     font-size:14px;
     font-weight: 400;
@@ -111,8 +112,8 @@ main img{
     margin-bottom: 0px;
 }
 .add-newsletter-form [type="button"], .add-newsletter-form [type="submit"] {
-  color: #3C474B;
-  margin-top:10px;
+    color: #3C474B;
+    margin-top:10px;
   margin-bottom: 10px;
   margin-right: 10px;
   font-size: 12px;
@@ -169,6 +170,10 @@ main img{
 }
 .add-newsletter:active{
     background-color: white;
+}
+
+.newsletter-container .newsletter-combo{
+    margin-bottom: 5px;
 }
 
 .newsletter-combo{

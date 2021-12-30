@@ -1,3 +1,5 @@
+from datetime import date
+from os import link
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import redirect
@@ -10,12 +12,13 @@ db = SQLAlchemy(app)
 
 class newsletter(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    link = db.Column(db.String, default ="null")
-    date =  db.Column(db.Date, default="null")
+    link = db.Column(db.String)
+    date =  db.Column(db.String)
 
 @app.route('/')
 def index():
-    return render_template('home.html')
+    db_data = newsletter.query.order_by(desc(newsletter.id))
+    return render_template('home.html', db_data = db_data)
 
 @app.route('/login')
 def login():
@@ -23,11 +26,27 @@ def login():
 
 @app.route('/admin', methods=['POST', 'GET'])
 def admin():
-    return render_template('admin.html')
+    if request.method == 'POST':
+        newsletter_link = request.form['link']
+        newsletter_date = request.form['date']
+        new_newsletter = newsletter(link=newsletter_link, date=newsletter_date)
+        db.session.add(new_newsletter)
+        db.session.commit()
+        return redirect('/admin')
+    else:
+        db_data = newsletter.query.order_by(desc(newsletter.id))
+        return render_template('admin.html', db_data = db_data)
 
-@app.route('/update', methods=["POST","GET"])
-def update():
-    return render_template('update.html')
+@app.route('/update/<int:id>', methods=["POST","GET"])
+def update(id):
+    data = newsletter.query.get_or_404(id)
+    if request.method == 'POST':
+        data.link = request.form['link']
+        data.date = request.form['date']
+        db.session.commit()
+        return redirect('/admin')
+    else:
+        return render_template('update.html', db_data=data)
 
 @app.route('/logout')
 def logout():

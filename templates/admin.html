@@ -13,7 +13,7 @@
         <div class="newsletter-container" >
             <button class="add-newsletter"><img src="{{ url_for('static', filename='imgs/plus_icon_green.png') }}" alt="plus-symbol"></button>
             <div class="add-newsletter-form">
-                <form>
+                <form action="/admin" method="POST">
                     <input type="text" name="link" placeholder="Enter link here" required>
                     <input type="date" name="date" required><br>
                     <div class="form-buttons">
@@ -22,14 +22,16 @@
                     </div>
                 </form>
             </div>
+            {% for item in db_data%}
             <div class="newsletter-combo">
-                <a class="newsletter-button" href="" target="_blank">
-                    <button>{content-holder-test}</button>
+                <a class="newsletter-button" href="{{item.link}}" target="_blank">
+                    <button>Newsletter {{item.date}}</button>
                 </a>
-                <a href="/update" class="update-newsletter">
+                <a href="/update/{{item.id}}" class="update-newsletter">
                     <img src="{{ url_for('static', filename='imgs/editing_icon_green.png') }}">
                 </a>
-            </div>  
+            </div>
+            {%endfor%}  
         </div>
     </main>
 {%endblock%}
