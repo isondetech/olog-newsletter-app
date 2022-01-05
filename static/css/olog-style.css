@@ -54,19 +54,52 @@ main img{
 }
 
 .login-container{
-    height:250px
-
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.login-container a button{
-   border: 1px solid #75C6A9;
-   color:#75C6A9;
-   background-color: transparent;
-   width: 70px;
-   height: 35px;
-    
+.login-container p{
+    font-size: 12px;
+    background-color: lightcoral;
+    color: white;
+    width: 80%;
+    text-align: center;
 }
 
+.login-container form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px
+}
+
+.login-container .login-button{
+    position: relative;
+    border: 1px solid #75C6A9;
+    color:#75C6A9;
+    background-color: transparent;
+    width: 70px;
+    height: 35px;
+    border-radius: 6px;
+    margin-top: 0px;
+}
+
+.login-container [type="password"]{
+    border: 1px solid #75C6A9;
+    height: 25px;
+    border-radius: 6px;
+}
+
+.login-container .login-button:hover{
+    cursor: pointer;
+}
+
+.login-container .login-button:active{
+    top:1px;
+}
 
 .newsletter-container{
     width: 80%;
@@ -114,13 +147,13 @@ main img{
 .add-newsletter-form [type="button"], .add-newsletter-form [type="submit"] {
     color: #3C474B;
     margin-top:10px;
-  margin-bottom: 10px;
-  margin-right: 10px;
-  font-size: 12px;
-  font-weight: 500;
-  width:50px;
-  height:30px;
-  position: relative;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    width:50px;
+    height:30px;
+    position: relative;
 }
 
 .add-newsletter-form [type="button"]{

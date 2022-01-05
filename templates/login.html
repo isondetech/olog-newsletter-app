@@ -1,12 +1,23 @@
 {% extends "base.html" %}
 
 {%block head%}
-    <title>Update Newsletter</title>
+    <title>Login</title>
 {%endblock%}
 
 {%block content%}
 <main class="login-container">
-        <a class="login-button"><button>login</button></a>
+    {%with messages = get_flashed_messages()%}
+        {% if messages%}
+            {%for message in messages%}
+                <p>{{message}}</p>
+            {%endfor%}
+        {%endif%}
+    {%endwith%}
+    <form action="/login" method="POST">
+        {{form.hidden_tag()}}
+        {{form.passcode}}
+        {{form.submit(class="login-button")}}
+    </form>
 </main>
 {%endblock%}
          
