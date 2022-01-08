@@ -1,4 +1,4 @@
-
+import os
 from flask import Flask, render_template, request, flash
 from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
@@ -7,11 +7,12 @@ from sqlalchemy import desc
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, SubmitField
-from wtforms.validators import  InputRequired, Length, ValidationError
+from wtforms.validators import  InputRequired
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '&_ux{2&4?GLQ8@y7'
 db = SQLAlchemy(app)
@@ -47,7 +48,7 @@ def index():
 @app.route('/login', methods=['GET','POST'])
 def login():
     form = LoginForm()
-    user = passcode.query.get_or_404(2)
+    user = passcode.query.get_or_404(1)
     if form.validate_on_submit():
         if bcrypt.check_password_hash(user.password, form.passcode.data):
             login_user(user)
@@ -65,6 +66,7 @@ def admin():
         new_newsletter = newsletter(link=newsletter_link, date=newsletter_date)
         db.session.add(new_newsletter)
         db.session.commit()
+        # db_data = newsletter.query.all()
         return redirect('/admin')
     else:
         db_data = newsletter.query.order_by(desc(newsletter.id))
