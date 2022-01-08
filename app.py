@@ -48,7 +48,7 @@ def index():
 @app.route('/login', methods=['GET','POST'])
 def login():
     form = LoginForm()
-    user = passcode.query.get_or_404(1)
+    user = passcode.query.get_or_404(2)
     if form.validate_on_submit():
         if bcrypt.check_password_hash(user.password, form.passcode.data):
             login_user(user)
