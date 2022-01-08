@@ -33,7 +33,7 @@ class newsletter(db.Model):
 
 class passcode(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    password = db.Column(db.String(80))
+    password = db.Column(db.String)
 
 class LoginForm(FlaskForm):
     passcode = PasswordField(validators=[InputRequired()],render_kw={"placeholder":" Enter passcode"})
