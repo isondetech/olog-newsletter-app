@@ -1,4 +1,5 @@
 import os
+import re
 from flask import Flask, render_template, request, flash
 from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
@@ -11,8 +12,12 @@ from wtforms.validators import  InputRequired
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+
+#replace 'postgres' to 'postgresql'
+heroku_config_databaseurl_env = os.getenv("DATABASE_URL")
+database_url = newStr = re.sub(r'(postgres)', r'\1ql', heroku_config_databaseurl_env)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(database_url)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '&_ux{2&4?GLQ8@y7'
 db = SQLAlchemy(app)
