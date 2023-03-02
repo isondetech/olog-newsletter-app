@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 #replace 'postgres' to 'postgresql'
 heroku_config_databaseurl_env = os.getenv("DATABASE_URL")
-database_url = newStr = re.sub(r'(postgres)', r'\1ql', heroku_config_databaseurl_env)
+database_url = re.sub(r'(postgres)', r'\1ql', heroku_config_databaseurl_env)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
