@@ -1,5 +1,6 @@
 import os
 import re
+
 from flask import Flask, render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import redirect
@@ -10,14 +11,16 @@ from wtforms import PasswordField, SubmitField
 from wtforms.validators import  InputRequired
 from flask_bcrypt import Bcrypt
 
+import fmtdate
+
 app = Flask(__name__)
 
 #FIXME this can be changed in Heroku
 #replace 'postgres' to 'postgresql'
 heroku_config_databaseurl_env = os.getenv("DATABASE_URL")
-database_url = re.sub(r'(postgres)', r'\1ql', heroku_config_databaseurl_env)
+database_uri = re.sub(r'(postgres)', r'\1ql', heroku_config_databaseurl_env)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "database_url"
+app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #FIXME add as variable in heroku
 app.config['SECRET_KEY'] = '&_ux{2&4?GLQ8@y7'
@@ -68,7 +71,7 @@ def login():
 def admin():
     if request.method == 'POST':
         newsletter_link = request.form['link']
-        newsletter_date = request.form['date']
+        newsletter_date = fmtdate.formatDate(request.form['date'])
         new_newsletter = newsletter(link=newsletter_link, date=newsletter_date)
         db.session.add(new_newsletter)
         db.session.commit()
@@ -83,7 +86,7 @@ def update(id):
     data = newsletter.query.get_or_404(id)
     if request.method == 'POST':
         data.link = request.form['link']
-        data.date = request.form['date']
+        data.date = fmtdate.formatDate(request.form['date'])
         db.session.commit()
         return redirect('/admin')
     else:
@@ -96,4 +99,4 @@ def logout():
     return redirect("/login")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
