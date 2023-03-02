@@ -1,25 +1,30 @@
+"""
+This module serves olognewsletter.heroku.com pages
+"""
 import os
 import re
+
 from flask import Flask, render_template, request, flash
-from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import redirect
 from sqlalchemy import desc
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, SubmitField
 from wtforms.validators import  InputRequired
 from flask_bcrypt import Bcrypt
 
+import fmtdate
+
 app = Flask(__name__)
 
 #replace 'postgres' to 'postgresql'
 heroku_config_databaseurl_env = os.getenv("DATABASE_URL")
-database_url = newStr = re.sub(r'(postgres)', r'\1ql', heroku_config_databaseurl_env)
+database_uri = re.sub(r'(postgres)', r'\1ql', heroku_config_databaseurl_env)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = '&_ux{2&4?GLQ8@y7'
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
@@ -29,61 +34,69 @@ login_manager.login_view="login"
 
 @login_manager.user_loader
 def load_user(user_id):
-    return passcode.query.get(int(user_id))
+    """get user from database"""
+    return Passcode.query.get(int(user_id))
 
-class newsletter(db.Model):
+class Newsletter(db.Model):
+    """newsletter datamodel object"""
     id = db.Column(db.Integer, primary_key=True)
     link = db.Column(db.String)
     date =  db.Column(db.String)
 
-class passcode(db.Model, UserMixin):
+class Passcode(db.Model, UserMixin):
+    """passcode datamodel object"""
     id = db.Column(db.Integer, primary_key=True)
     password = db.Column(db.String)
 
 class LoginForm(FlaskForm):
-    passcode = PasswordField(validators=[InputRequired()],render_kw={"placeholder":" Enter passcode"})
+    """login form object"""
+    passcode = PasswordField(
+        validators=[InputRequired()],
+        render_kw={"placeholder":" Enter passcode"}
+    )
     submit = SubmitField("Login")
 
 
 @app.route('/')
 def index():
-    db_data = newsletter.query.order_by(desc(newsletter.id))
+    """Home page"""
+    db_data = Newsletter.query.order_by(desc(Newsletter.id))
     return render_template('home.html', db_data = db_data[:14])
 
 @app.route('/login', methods=['GET','POST'])
 def login():
+    """Login page"""
     form = LoginForm()
-    user = passcode.query.get_or_404(1)
+    user = Passcode.query.get_or_404(1)
     if form.validate_on_submit():
         if bcrypt.check_password_hash(user.password, form.passcode.data):
             login_user(user)
             return redirect('/admin')
-        else:
-            flash("Wrong Passcode")
+        flash("Wrong Passcode")
     return render_template('login.html', form=form)
 
 @app.route('/admin', methods=['POST', 'GET'])
 @login_required
 def admin():
+    """Admin page"""
     if request.method == 'POST':
         newsletter_link = request.form['link']
-        newsletter_date = request.form['date']
-        new_newsletter = newsletter(link=newsletter_link, date=newsletter_date)
+        newsletter_date = fmtdate.format_date(request.form['date'])
+        new_newsletter = Newsletter(link=newsletter_link, date=newsletter_date)
         db.session.add(new_newsletter)
         db.session.commit()
-        # db_data = newsletter.query.all()
         return redirect('/admin')
-    else:
-        db_data = newsletter.query.order_by(desc(newsletter.id))
-        return render_template('admin.html', db_data = db_data[:14])
+    db_data = Newsletter.query.order_by(desc(Newsletter.id))
+    return render_template('admin.html', db_data = db_data[:14])
 
 @app.route('/update/<int:id>', methods=["POST","GET"])
 @login_required
 def update(id):
-    data = newsletter.query.get_or_404(id)
+    """update page"""
+    data = Newsletter.query.get_or_404(id)
     if request.method == 'POST':
         data.link = request.form['link']
-        data.date = request.form['date']
+        data.date = fmtdate.format_date(request.form['date'])
         db.session.commit()
         return redirect('/admin')
     else:
@@ -92,8 +105,9 @@ def update(id):
 @app.route('/logout')
 @login_required
 def logout():
+    """Logout a user"""
     logout_user()
     return redirect("/login")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
