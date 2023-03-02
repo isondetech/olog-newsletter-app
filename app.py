@@ -1,11 +1,10 @@
 import os
 import re
 from flask import Flask, render_template, request, flash
-from flask.helpers import flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import redirect
 from sqlalchemy import desc
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, SubmitField
 from wtforms.validators import  InputRequired
@@ -13,12 +12,14 @@ from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 
+#FIXME this can be changed in Heroku
 #replace 'postgres' to 'postgresql'
 heroku_config_databaseurl_env = os.getenv("DATABASE_URL")
 database_url = re.sub(r'(postgres)', r'\1ql', heroku_config_databaseurl_env)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+app.config['SQLALCHEMY_DATABASE_URI'] = "database_url"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#FIXME add as variable in heroku
 app.config['SECRET_KEY'] = '&_ux{2&4?GLQ8@y7'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
@@ -71,7 +72,6 @@ def admin():
         new_newsletter = newsletter(link=newsletter_link, date=newsletter_date)
         db.session.add(new_newsletter)
         db.session.commit()
-        # db_data = newsletter.query.all()
         return redirect('/admin')
     else:
         db_data = newsletter.query.order_by(desc(newsletter.id))
