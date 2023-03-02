@@ -18,15 +18,13 @@ import fmtdate
 
 app = Flask(__name__)
 
-#FIXME this can be changed in Heroku
 #replace 'postgres' to 'postgresql'
 heroku_config_databaseurl_env = os.getenv("DATABASE_URL")
 database_uri = re.sub(r'(postgres)', r'\1ql', heroku_config_databaseurl_env)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#FIXME add as variable in heroku
-app.config['SECRET_KEY'] = '&_ux{2&4?GLQ8@y7'
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
@@ -74,7 +72,7 @@ def login():
         if bcrypt.check_password_hash(user.password, form.passcode.data):
             login_user(user)
             return redirect('/admin')
-    flash("Wrong Passcode")
+        flash("Wrong Passcode")
     return render_template('login.html', form=form)
 
 @app.route('/admin', methods=['POST', 'GET'])
