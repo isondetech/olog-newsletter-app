@@ -56,17 +56,17 @@ class LoginForm(FlaskForm):
     )
     submit = SubmitField("Login")
 
-
-def fix_data():
-    newsletters = db.session.execute(db.select(Newsletter)).scalars()
+# helper functions
+def get_fmt_newsletters() -> list:
+    return fmtdate.fmt_newsletter_dates(db.session.execute(db.select(Newsletter).order_by(Newsletter.date)).scalars().all())
 
 @app.route('/')
 def index():
     """Home page"""
     # format date here
     # sort data here
-    db_data = Newsletter.query.order_by(desc(Newsletter.id))
-    return render_template('home.html', db_data = db_data[:14])
+    newsletters = get_fmt_newsletters()
+    return render_template('home.html', db_data = newsletters[:14])
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -91,8 +91,8 @@ def admin():
         db.session.add(new_newsletter)
         db.session.commit()
         return redirect('/admin')
-    db_data = Newsletter.query.order_by(desc(Newsletter.id))
-    return render_template('admin.html', db_data = db_data[:14])
+    newsletters = get_fmt_newsletters()
+    return render_template('admin.html', db_data = newsletters[:14])
 
 @app.route('/update/<int:id>', methods=["POST","GET"])
 # @login_required
