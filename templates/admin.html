@@ -25,7 +25,7 @@
             {% for item in db_data%}
             <div class="newsletter-combo">
                 <a class="newsletter-button" href="{{item.link}}" target="_blank">
-                    <button>Newsletter {{item.date}}</button>
+                    <button>{{item.date}}</button>
                 </a>
                 <a href="/update/{{item.id}}" class="update-newsletter">
                     <img src="{{ url_for('static', filename='imgs/editing_icon_green.png') }}">

@@ -7,7 +7,7 @@ import re
 from flask import Flask, render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import redirect
-from sqlalchemy import desc
+from sqlalchemy import desc, asc
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, SubmitField
@@ -36,6 +36,10 @@ def load_user(user_id):
     """get user from database"""
     return Passcode.query.get(int(user_id))
 
+
+# define models
+
+
 class Newsletter(db.Model):
     """newsletter datamodel object"""
     id = db.Column(db.Integer, primary_key=True)
@@ -60,7 +64,7 @@ class LoginForm(FlaskForm):
 
 
 def format_date(date: str) -> str:
-    if date != "":
+    if date != "" and date != None:
         date_obj = datetime.strptime(date, '%Y-%m-%d').date()
         return date_obj.strftime("%a %d %b %Y")
     return ""
@@ -73,19 +77,27 @@ def fmt_newsletter_dates(newsletters):
     return newsletters
 
 def get_fmt_newsletters() -> list:
-    return fmt_newsletter_dates(db.session.execute(db.select(Newsletter).order_by(Newsletter.date)).scalars().all())
+    return fmt_newsletter_dates(db.session.execute(db.select(Newsletter).order_by(desc(Newsletter.date))).scalars().all())
 
+
+# controllers
+
+
+"""
+Home Page
+"""
 @app.route('/')
 def index():
-    """Home page"""
-    # format date here
-    # sort data here
+
     newsletters = get_fmt_newsletters()
+    print(newsletters)
     return render_template('home.html', db_data = newsletters[:14])
 
+"""
+Login Page
+"""
 @app.route('/login', methods=['GET','POST'])
 def login():
-    """Login page"""
     form = LoginForm()
     user = Passcode.query.get_or_404(1)
     if form.validate_on_submit():
@@ -95,10 +107,12 @@ def login():
         flash("Wrong Passcode")
     return render_template('login.html', form=form)
 
+"""
+Admin Page
+"""
 @app.route('/admin', methods=['POST', 'GET'])
 # @login_required
 def admin():
-    """Admin page"""
     if request.method == 'POST':
         newsletter_link = request.form['link']
         newsletter_date = request.form['date']
@@ -109,10 +123,13 @@ def admin():
     newsletters = get_fmt_newsletters()
     return render_template('admin.html', db_data = newsletters[:14])
 
+"""
+Update Page
+"""
 @app.route('/update/<int:id>', methods=["POST","GET"])
 # @login_required
 def update(id):
-    """update page"""
+    
     data = Newsletter.query.get_or_404(id)
     if request.method == 'POST':
         data.link = request.form['link']
@@ -122,12 +139,18 @@ def update(id):
     else:
         return render_template('update.html', db_data=data)
 
+"""
+Logout Page
+"""
 @app.route('/logout')
 @login_required
 def logout():
-    """Logout a user"""
     logout_user()
     return redirect("/login")
+
+
+# start app
+
 
 if __name__ == "__main__":
     app.run()
