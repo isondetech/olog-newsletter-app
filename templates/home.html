@@ -10,20 +10,20 @@
             <div id="this-week-container">
                 <h5>This week's newsletter</h5>
                 <a class="newsletter-button" href="{{db_data[0].link}}" target="_blank">
-                    <button>Newsletter {{db_data[0].date}}</button>
+                    <button>{{db_data[0].date}}</button>
                 </a>
             </div>
             <div id="last-week-container">
                 <h5>Last week's newsletter</h5>
                 <a class="newsletter-button" href="{{db_data[1].link}}" target="_blank">
-                    <button>Newsletter {{db_data[1].date}}</button>
+                    <button>{{db_data[1].date}}</button>
                 </a>
             </div>
             <div id="other-week-container">
                 <h5>Other weeks' newsletter</h5>
                 {%for item in db_data[2:]%}
                 <a class="newsletter-button" href="{{item.link}}" target="_blank">
-                    <button>Newsletter {{item.date}}</button>
+                    <button>{{item.date}}</button>
                 </a>
                 {%endfor%}
             </div>
