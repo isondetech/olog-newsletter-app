@@ -7,7 +7,7 @@ import re
 from flask import Flask, render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import redirect
-from sqlalchemy import desc, asc
+from sqlalchemy import desc
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, SubmitField
