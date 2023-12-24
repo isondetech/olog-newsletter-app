@@ -66,7 +66,7 @@ class LoginForm(FlaskForm):
 def format_date(date: str) -> str:
     if date != "" and date != None:
         date_obj = datetime.strptime(date, '%Y-%m-%d').date()
-        return date_obj.strftime("%a %d %b %Y")
+        return date_obj.strftime("%a %d %B %Y")
     return ""
 
 def fmt_newsletter_dates(newsletters):
@@ -111,7 +111,7 @@ def login():
 Admin Page
 """
 @app.route('/admin', methods=['POST', 'GET'])
-# @login_required
+@login_required
 def admin():
     if request.method == 'POST':
         newsletter_link = request.form['link']
@@ -127,7 +127,7 @@ def admin():
 Update Page
 """
 @app.route('/update/<int:id>', methods=["POST","GET"])
-# @login_required
+@login_required
 def update(id):
     
     data = Newsletter.query.get_or_404(id)
