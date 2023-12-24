@@ -13,8 +13,7 @@ from flask_wtf import FlaskForm
 from wtforms import PasswordField, SubmitField
 from wtforms.validators import  InputRequired
 from flask_bcrypt import Bcrypt
-
-import fmtdate
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -56,9 +55,25 @@ class LoginForm(FlaskForm):
     )
     submit = SubmitField("Login")
 
+
 # helper functions
+
+
+def format_date(date: str) -> str:
+    if date != "":
+        date_obj = datetime.strptime(date, '%Y-%m-%d').date()
+        return date_obj.strftime("%a %d %b %Y")
+    return ""
+
+def fmt_newsletter_dates(newsletters):
+    for newsletter in newsletters:
+            modded_date = format_date(newsletter.date)
+            newsletter.date = modded_date
+
+    return newsletters
+
 def get_fmt_newsletters() -> list:
-    return fmtdate.fmt_newsletter_dates(db.session.execute(db.select(Newsletter).order_by(Newsletter.date)).scalars().all())
+    return fmt_newsletter_dates(db.session.execute(db.select(Newsletter).order_by(Newsletter.date)).scalars().all())
 
 @app.route('/')
 def index():
