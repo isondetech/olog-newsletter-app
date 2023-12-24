@@ -57,9 +57,14 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Login")
 
 
+def fix_data():
+    newsletters = db.session.execute(db.select(Newsletter)).scalars()
+
 @app.route('/')
 def index():
     """Home page"""
+    # format date here
+    # sort data here
     db_data = Newsletter.query.order_by(desc(Newsletter.id))
     return render_template('home.html', db_data = db_data[:14])
 
@@ -76,12 +81,12 @@ def login():
     return render_template('login.html', form=form)
 
 @app.route('/admin', methods=['POST', 'GET'])
-@login_required
+# @login_required
 def admin():
     """Admin page"""
     if request.method == 'POST':
         newsletter_link = request.form['link']
-        newsletter_date = fmtdate.format_date(request.form['date'])
+        newsletter_date = request.form['date']
         new_newsletter = Newsletter(link=newsletter_link, date=newsletter_date)
         db.session.add(new_newsletter)
         db.session.commit()
@@ -90,13 +95,13 @@ def admin():
     return render_template('admin.html', db_data = db_data[:14])
 
 @app.route('/update/<int:id>', methods=["POST","GET"])
-@login_required
+# @login_required
 def update(id):
     """update page"""
     data = Newsletter.query.get_or_404(id)
     if request.method == 'POST':
         data.link = request.form['link']
-        data.date = fmtdate.format_date(request.form['date'])
+        data.date = request.form['date']
         db.session.commit()
         return redirect('/admin')
     else:
