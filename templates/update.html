@@ -37,9 +37,9 @@
             </div>
         </div>
         <div class="update-card-buttons">
-            <input type="submit" value="Update">
-            <a href="{{ url_for('admin') }}"><button type="button">Cancel</button></a>
-            <a href="{{url_for('delete', id=db_data.id)}}"><button type="button">Delete</button></a>
+            <button type="submit" class="update-card-submit-btn">Update</button>
+            <a href="{{ url_for('admin') }}"><button class="update-card-cancel-btn" type="button">Cancel</button></a>
+            <a href="{{url_for('delete', id=db_data.id)}}"><button class="update-card-delete-btn" type="button">Delete</button></a>
         </div>
     </form>
 </main>

@@ -34,7 +34,7 @@
 
 .update-card-label{
     background-color: #fff;
-    font-size: 14px;
+    font-size: 12px;
     color: #75C6A9;
     border-right: 1px solid #75C6A9;
     border-bottom-left-radius: 3px;
@@ -56,4 +56,22 @@
     padding-left: 4px;
     padding-right: 4px;
     box-shadow: 1px 1.5px 2.5px #5d9e87;
+}
+
+.update-card-buttons{
+    display: flex;
+    gap: 10px;
+}
+
+
+.update-card-buttons button{
+    font-size: 12px;
+    width: 3.5rem;
+    margin-top: 0px;
+}
+
+.update-card-buttons{
+    font-size: 12px;
+    width: 3.5rem;
+    margin-top: 0px;
 }
