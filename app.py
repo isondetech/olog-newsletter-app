@@ -115,7 +115,7 @@ def login():
 Admin Page
 """
 @app.route('/admin', methods=['POST', 'GET'])
-@login_required
+# @login_required
 def admin():
     if request.method == 'POST':
         newsletter_link = request.form['link']
