@@ -1,0 +1,56 @@
+.update-card-parent{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.update-card-content{
+    background-color: #75C6A9;
+    width: 80%;
+    border-radius: 3px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.update-card-content h1{
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.update-card-inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.update-card-input{
+    display: flex;
+}
+
+.update-card-label{
+    background-color: #fff;
+    font-size: 14px;
+    color: #75C6A9;
+    border-right: 1px solid #75C6A9;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 10px 0px 10px;
+}
+
+.update-card-input input{
+    border: 0 solid black;
+    font-size: 14px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    width: 100%;
+    padding-left: 4px;
+}

@@ -23,23 +23,23 @@
         </div>  
     </div>
     <form class="update-card-parent" action="{{url_for('update', id=db_data.id)}}" method="POST">
-        <div class="update-card-child">
+        <div class="update-card-content">
             <h1>UPDATE NEWSLETTER</h1>
             <div class="update-card-inputs">
                 <div class="update-card-input">
-                    <p>URL</p>
+                    <div class="update-card-label"><p>URL</p></div>
                     <input type="text" name="link" placeholder="Enter link here" value="{{db_data.link}}"required>
                 </div>
                 <div class="update-card-input">
-                    <p>DATE</p>
+                    <div class="update-card-label"><p>DATE</p></div>
                     <input type="date" name="date" value="{{db_data.date}}" required>
                 </div>
             </div>
-            <div class="update-card-buttons">
-                <input type="submit" value="Update">
-                <a href="{{ url_for('admin') }}"><button type="button">Cancel</button></a>
-                <a href="{{url_for('delete', id=db_data.id)}}"><button type="button">Delete</button></a>
-            </div>
+        </div>
+        <div class="update-card-buttons">
+            <input type="submit" value="Update">
+            <a href="{{ url_for('admin') }}"><button type="button">Cancel</button></a>
+            <a href="{{url_for('delete', id=db_data.id)}}"><button type="button">Delete</button></a>
         </div>
     </form>
 </main>
