@@ -7,9 +7,9 @@
 
 .update-card-content{
     background-color: #75C6A9;
-    width: 80%;
+    width: 90%;
     border-radius: 3px;
-    padding: 10px;
+    padding: 20px 10px 20px 10px;
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -39,7 +39,7 @@
     border-right: 1px solid #75C6A9;
     border-bottom-left-radius: 3px;
     border-top-left-radius: 3px;
-    height: 30px;
+    height: 46px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,4 +53,5 @@
     border-bottom-right-radius: 3px;
     width: 100%;
     padding-left: 4px;
+    padding-right: 4px;
 }
