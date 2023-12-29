@@ -57,3 +57,23 @@
     color: #BF3131;
     background-color: #fff;
 }
+
+/* Hover States */
+
+.delete-card-buttons .delete-card-submit-btn:hover{
+    background-color: #9e2828;
+}
+
+.delete-card-buttons .delete-card-cancel-btn:hover{
+    background-color: rgba(191, 49, 49, 0.1);
+}
+
+/* Active States */
+
+.delete-card-buttons .delete-card-submit-btn:active{
+    background-color: #9e2828;
+}
+
+.delete-card-buttons .delete-card-cancel-btn:active{
+    background-color: rgba(191, 49, 49, 0.1);
+}
