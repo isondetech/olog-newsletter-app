@@ -8,13 +8,13 @@
     <main>
         <div class="newsletter-container" >
             <div id="this-week-container">
-                <h5>This week's newsletter</h5>
+                <h5>This Week's Newsletter</h5>
                 <a class="newsletter-button" href="{{db_data[0].link}}" target="_blank">
                     <button>{{db_data[0].date}}</button>
                 </a>
             </div>
             <div id="other-week-container">
-                <h5>Past weeks' newsletter</h5>
+                <h5>Past Weeks' Newsletters</h5>
                 {%for item in db_data[1:]%}
                 <a class="newsletter-button" href="{{item.link}}" target="_blank">
                     <button>{{item.date}}</button>
