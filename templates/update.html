@@ -22,6 +22,26 @@
             </form>
         </div>  
     </div>
+    <form class="update-card-parent">
+        <div class="update-card-child">
+            <h1>UPDATE NEWSLETTER</h1>
+            <div class="update-card-inputs">
+                <div class="update-card-input">
+                    <p>URL</p>
+                    <input type="text" name="link" placeholder="Enter link here" value="{{db_data.link}}"required>
+                </div>
+                <div class="update-card-input">
+                    <p>DATE</p>
+                    <input type="date" name="date" value="{{db_data.date}}" required>
+                </div>
+            </div>
+            <div class="update-card-buttons">
+                <input type="submit" value="Update">
+                <a href="{{ url_for('admin') }}"><button type="button">Cancel</button></a>
+                <a><button type="button">Delete</button></a>
+            </div>
+        </div>
+    </form>
 </main>
 {%endblock%}
 
