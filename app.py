@@ -148,7 +148,7 @@ Delete Newsletter Page
 @app.route('/delete/<int:id>', methods=["POST","GET"])
 # @login_required
 def delete(id):
-    pass
+    return render_template('delete.html')
 
 """
 Logout Page

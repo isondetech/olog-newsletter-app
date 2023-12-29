@@ -5,7 +5,7 @@
 {%endblock%}
 
 {%block header%}
-    <a href='/' target="_blank"><p>Preview website</p></a>
+    <a href="{{ url_for('index') }}" target="_blank"><p>Preview website</p></a>
 {%endblock%}
 
 {%block content%}
@@ -22,7 +22,7 @@
             </form>
         </div>  
     </div>
-    <form class="update-card-parent">
+    <form class="update-card-parent" action="{{url_for('update', id=db_data.id)}}" method="POST">
         <div class="update-card-child">
             <h1>UPDATE NEWSLETTER</h1>
             <div class="update-card-inputs">
@@ -38,7 +38,7 @@
             <div class="update-card-buttons">
                 <input type="submit" value="Update">
                 <a href="{{ url_for('admin') }}"><button type="button">Cancel</button></a>
-                <a><button type="button">Delete</button></a>
+                <a href="{{url_for('delete', id=db_data.id)}}"><button type="button">Delete</button></a>
             </div>
         </div>
     </form>
