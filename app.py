@@ -40,19 +40,25 @@ def load_user(user_id):
 # define models
 
 
+"""
+ Newsletter table datamodel object
+ """
 class Newsletter(db.Model):
-    """newsletter datamodel object"""
     id = db.Column(db.Integer, primary_key=True)
     link = db.Column(db.String)
     date =  db.Column(db.String)
 
+"""
+Passcode table datamodel object
+"""
 class Passcode(db.Model, UserMixin):
-    """passcode datamodel object"""
     id = db.Column(db.Integer, primary_key=True)
     password = db.Column(db.String)
 
+"""
+Login form object
+"""
 class LoginForm(FlaskForm):
-    """login form object"""
     passcode = PasswordField(
         validators=[InputRequired()],
         render_kw={"placeholder":" Enter passcode"}
@@ -80,7 +86,7 @@ def get_fmt_newsletters() -> list:
     return fmt_newsletter_dates(db.session.execute(db.select(Newsletter).order_by(desc(Newsletter.date))).scalars().all())
 
 
-# controllers
+# views
 
 
 """
@@ -88,9 +94,7 @@ Home Page
 """
 @app.route('/')
 def index():
-
     newsletters = get_fmt_newsletters()
-    print(newsletters)
     return render_template('home.html', db_data = newsletters[:14])
 
 """
@@ -124,20 +128,36 @@ def admin():
     return render_template('admin.html', db_data = newsletters[:14])
 
 """
-Update Page
+Update Newsletter Page
 """
 @app.route('/update/<int:id>', methods=["POST","GET"])
 @login_required
 def update(id):
-    
     data = Newsletter.query.get_or_404(id)
     if request.method == 'POST':
         data.link = request.form['link']
         data.date = request.form['date']
         db.session.commit()
         return redirect('/admin')
-    else:
-        return render_template('update.html', db_data=data)
+    return render_template('update.html', db_data=data)
+
+"""
+Delete Newsletter Page
+"""
+@app.route('/delete/<int:id>', methods=["POST","GET"])
+@login_required
+def delete(id):
+    newsletter = db.get_or_404(Newsletter, id)
+    if request.method == 'POST':
+        db.session.delete(newsletter)
+        db.session.commit()
+        return redirect('/admin')
+    fmt_newsletter_date = format_date(newsletter.date)
+    return render_template(
+        'delete.html', 
+        newsletter_info=f"Newsletter {fmt_newsletter_date}", 
+        newsletter_id=id
+    )
 
 """
 Logout Page
@@ -150,7 +170,6 @@ def logout():
 
 
 # start app
-
 
 if __name__ == "__main__":
     app.run()

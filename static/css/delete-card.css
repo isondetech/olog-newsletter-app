@@ -1,0 +1,79 @@
+.delete-card-parent{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 4.5rem;
+}
+
+.delete-card-content{
+    width: 80%;
+}
+
+.delete-card-title{
+    text-align: center;
+    border: 1px solid #BF3131;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    color: #BF3131;
+    padding: 4px;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.delete-card-info{
+    background-color: rgba(191, 49, 49, 0.1);
+    border-left: 1px solid #BF3131;
+    border-bottom: 1px solid #BF3131;
+    border-right: 1px solid #BF3131;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    color: #BF3131;
+    text-align: center;
+    padding: 10px;
+}
+
+.delete-card-buttons{
+    display: flex;
+    gap: 10px
+}
+
+.delete-card-buttons button{
+    font-size: 12px;
+    width: 3.5rem;
+    color:#fff;
+    transition-duration: 0.2s;
+    margin: 0px;
+}
+
+.delete-card-buttons .delete-card-submit-btn{
+    background-color: #BF3131;
+}
+
+.delete-card-buttons .delete-card-cancel-btn{
+    border: 1px solid #BF3131;
+    color: #BF3131;
+    background-color: #fff;
+}
+
+/* Hover States */
+
+.delete-card-buttons .delete-card-submit-btn:hover{
+    background-color: #9e2828;
+}
+
+.delete-card-buttons .delete-card-cancel-btn:hover{
+    background-color: rgba(191, 49, 49, 0.1);
+}
+
+/* Active States */
+
+.delete-card-buttons .delete-card-submit-btn:active{
+    background-color: #9e2828;
+}
+
+.delete-card-buttons .delete-card-cancel-btn:active{
+    background-color: rgba(191, 49, 49, 0.1);
+}

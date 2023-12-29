@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{%block head%}
+    <title>Delete Newsletter</title>
+{%endblock%}
+
+{%block header%}
+    <a href="{{ url_for('index') }}" target="_blank"><p>Preview website</p></a>
+{%endblock%}
+
+{%block content%}
+<main>
+    <form class="delete-card-parent" action="{{url_for('delete', id=newsletter_id)}}" method="POST">
+        <div class="delete-card-content">
+            <div class="delete-card-title">
+                <p>DELETE?</p>
+            </div>
+            <div class="delete-card-info">
+                <p>{{newsletter_info}}</p>
+            </div>
+        </div>
+        <div class="delete-card-buttons">
+            <button type="submit" class="delete-card-submit-btn">Delete</button>
+            <a href="{{ url_for('admin') }}"><button class="delete-card-cancel-btn" type="button">Cancel</button></a>
+        </div>
+    </form>
+</main>
+{%endblock%}
+
+{%block footer%}
+    <a href="/logout"><p>logout</p></a>
+{%endblock%}
