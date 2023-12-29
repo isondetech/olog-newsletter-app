@@ -115,7 +115,7 @@ def login():
 Admin Page
 """
 @app.route('/admin', methods=['POST', 'GET'])
-# @login_required
+@login_required
 def admin():
     if request.method == 'POST':
         newsletter_link = request.form['link']
@@ -131,7 +131,7 @@ def admin():
 Update Newsletter Page
 """
 @app.route('/update/<int:id>', methods=["POST","GET"])
-# @login_required
+@login_required
 def update(id):
     data = Newsletter.query.get_or_404(id)
     if request.method == 'POST':
@@ -145,7 +145,7 @@ def update(id):
 Delete Newsletter Page
 """
 @app.route('/delete/<int:id>', methods=["POST","GET"])
-# @login_required
+@login_required
 def delete(id):
     newsletter = db.get_or_404(Newsletter, id)
     if request.method == 'POST':
@@ -163,7 +163,7 @@ def delete(id):
 Logout Page
 """
 @app.route('/logout')
-# @login_required
+@login_required
 def logout():
     logout_user()
     return redirect("/login")
@@ -171,6 +171,5 @@ def logout():
 
 # start app
 
-# FIXME remove debug=True
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
