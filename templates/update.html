@@ -10,18 +10,6 @@
 
 {%block content%}
 <main>
-    <div class="newsletter-container" >
-        <div class="add-newsletter-form">
-            <form action="/update/{{db_data.id}}" method="POST">
-                <input type="text" name="link" placeholder="Enter link here" value="{{db_data.link}}"required>
-                <input type="date" name="date" value="{{db_data.date}}" required><br>
-                <div class="form-buttons">
-                    <a href="/admin"><input type="button" value="Cancel"></a>
-                    <input type="submit" value="Update" >
-                </div>
-            </form>
-        </div>  
-    </div>
     <form class="update-card-parent" action="{{url_for('update', id=db_data.id)}}" method="POST">
         <div class="update-card-content">
             <h1>UPDATE NEWSLETTER</h1>

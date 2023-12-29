@@ -1,8 +1,11 @@
 .update-card-parent{
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 12px;
+    margin-top: 4.5rem;
 }
 
 .update-card-content{
@@ -68,10 +71,18 @@
     font-size: 12px;
     width: 3.5rem;
     margin-top: 0px;
+    color:#fff
 }
 
-.update-card-buttons{
-    font-size: 12px;
-    width: 3.5rem;
-    margin-top: 0px;
+.update-card-buttons .update-card-cancel-btn{
+    background-color: #fff;
+    border: 1px solid #75C6A9;
+    color: #75C6A9;
 }
+
+.update-card-buttons .update-card-delete-btn{
+    background-color: #BF3131;
+}
+
+/* Element States */
+
