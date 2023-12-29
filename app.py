@@ -139,8 +139,7 @@ def update(id):
         data.date = request.form['date']
         db.session.commit()
         return redirect('/admin')
-    else:
-        return render_template('update.html', db_data=data)
+    return render_template('update.html', db_data=data)
 
 """
 Delete Newsletter Page
@@ -149,6 +148,10 @@ Delete Newsletter Page
 # @login_required
 def delete(id):
     newsletter = db.get_or_404(Newsletter, id)
+    if request.method == 'POST':
+        db.session.delete(newsletter)
+        db.session.commit()
+        return redirect('/admin')
     fmt_newsletter_date = format_date(newsletter.date)
     return render_template(
         'delete.html', 
